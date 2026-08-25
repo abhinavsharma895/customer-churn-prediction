@@ -15,10 +15,7 @@ from sklearn.metrics import (
     confusion_matrix
 )
 
-
-# ---------------------------------------------------
 # 1. Load Dataset
-# ---------------------------------------------------
 
 df = pd.read_csv("customerchurn.csv", sep="\t")
 print("First 5 rows:")
@@ -30,11 +27,7 @@ print(df.info())
 print("\nMissing Values:")
 print(df.isnull().sum())
 
-
-# ---------------------------------------------------
 # 2. Data Cleaning
-# ---------------------------------------------------
-
 # Convert TotalCharges to numeric
 # Some datasets contain blank values in this column
 
@@ -51,21 +44,14 @@ df = df.dropna()
 if "customerID" in df.columns:
     df = df.drop("customerID", axis=1)
 
-
-# ---------------------------------------------------
-# ---------------------------------------------------
 # 3. Convert Target Column
-# ---------------------------------------------------
 
 df["Churn"] = df["Churn"].map({
     "Yes": 1,
     "No": 0
 })
 
-
-# ---------------------------------------------------
 # 4. Exploratory Data Analysis
-# ---------------------------------------------------
 
 print("\nChurn Distribution:")
 print(df["Churn"].value_counts())
@@ -78,18 +64,12 @@ plt.ylabel("Number of Customers")
 
 plt.show()
 
-
-# ---------------------------------------------------
 # 5. Separate Features and Target
-# ---------------------------------------------------
 
 X = df.drop("Churn", axis=1)
 y = df["Churn"]
 
-
-# ---------------------------------------------------
 # 6. Convert Categorical Features
-# ---------------------------------------------------
 
 categorical_columns = X.select_dtypes(
     include=["str"]
@@ -101,10 +81,7 @@ X = pd.get_dummies(
     drop_first=True
 )
 
-
-# ---------------------------------------------------
 # 7. Train-Test Split
-# ---------------------------------------------------
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -117,20 +94,14 @@ X_train, X_test, y_train, y_test = train_test_split(
 print("\nTraining data:", X_train.shape)
 print("Testing data:", X_test.shape)
 
-
-# ---------------------------------------------------
 # 8. Feature Scaling
-# ---------------------------------------------------
 
 scaler = StandardScaler()
 
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-
-# ---------------------------------------------------
 # 9. Train Machine Learning Model
-# ---------------------------------------------------
 
 model = LogisticRegression(
     max_iter=1000
@@ -138,17 +109,11 @@ model = LogisticRegression(
 
 model.fit(X_train, y_train)
 
-
-# ---------------------------------------------------
 # 10. Make Predictions
-# ---------------------------------------------------
 
 y_pred = model.predict(X_test)
 
-
-# ---------------------------------------------------
 # 11. Model Evaluation
-# ---------------------------------------------------
 
 accuracy = accuracy_score(y_test, y_pred)
 
@@ -158,10 +123,7 @@ print(f"{accuracy * 100:.2f}%")
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
 
-
-# ---------------------------------------------------
 # 12. Confusion Matrix
-# ---------------------------------------------------
 
 cm = confusion_matrix(y_test, y_pred)
 
@@ -179,10 +141,7 @@ plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.show()
 
-
-# ---------------------------------------------------
 # 13. Predict a New Customer
-# ---------------------------------------------------
 
 # Example:
 # 0 = customer will NOT churn
