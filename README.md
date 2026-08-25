@@ -197,6 +197,17 @@ This project can be improved by:
 
 ## Conclusion
 
+## Visualizations
+
+### Customer Churn Distribution
+
+![Customer Churn Distribution](images/churn-distribution.png)
+
+### Confusion Matrix
+
+![Confusion Matrix](images/confusion-matrix.png)
+
+
 This project demonstrates how Machine Learning can be used to solve a real-world business problem.
 
 By analyzing customer information and training a Logistic Regression model, the project predicts whether a customer is likely to stay or churn.
